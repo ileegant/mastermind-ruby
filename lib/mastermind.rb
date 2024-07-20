@@ -14,8 +14,7 @@ class Mastermind
   def play
     MAX_TURNS.times do
       system('clear')
-      display_board
-      display_hints
+      display_board_with_hints
       process_guess
 
       if game_won?
@@ -88,6 +87,11 @@ class Mastermind
       hint.each_with_index { |color, index| print "#{' ⦿'.colorize(color)}#{' ' if index.odd?}" }
       puts
     end
+  end
+
+  def display_board_with_hints
+    display_board
+    display_hints
   end
 
   def display_secret_code
