@@ -59,6 +59,7 @@ class Menu
     puts 'Rules'
     puts 'These are the rules of the game...'
     @prompt.keypress('Press any key to go back to the main menu')
+    system('clear')
   end
 
   def exit_program
