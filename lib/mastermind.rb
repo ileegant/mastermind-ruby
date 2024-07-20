@@ -17,7 +17,11 @@ class Mastermind
       display_board
       display_hints
       process_guess
-      break if game_won?
+
+      if game_won?
+        display_winner
+        break
+      end
 
       @turns -= 1
     end
@@ -86,5 +90,11 @@ class Mastermind
 
   def game_won?
     @code == @guess
+  end
+
+  def display_winner
+    puts 'WINNER! You cracked the code!'.colorize(:green)
+    puts "The code was: #{@code.map { |color| '⬤'.colorize(color) }.join(' ')}"
+    puts "You took #{MAX_TURNS - @turns + 1} turn(s) to solve it."
   end
 end
