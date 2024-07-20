@@ -11,6 +11,10 @@ class Menu
       { name: 'Rules', value: 2 },
       { name: 'Exit', value: 0 }
     ]
+    @roles = [
+      { name: 'Codebreaker', value: true },
+      { name: 'Codemaker', value: false }
+    ]
   end
 
   def run
@@ -18,7 +22,6 @@ class Menu
       display_header
       user_choice = @prompt.select('', @options, symbols: { marker: '•' })
       handle_choice(user_choice)
-      break if user_choice == 1
     end
   end
 
@@ -52,6 +55,7 @@ class Menu
   end
 
   def start_game
+    role = @prompt.select('Choose ypur role:', @roles, symbols: { marker: '•' })
     Mastermind.new.play
   end
 
