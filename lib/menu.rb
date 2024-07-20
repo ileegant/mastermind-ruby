@@ -55,7 +55,7 @@ class Menu
   end
 
   def start_game
-    role = @prompt.select('Choose ypur role:', @roles, symbols: { marker: '•' })
+    role = @prompt.select('Choose your role:', @roles, symbols: { marker: '•' })
     Mastermind.new.play
   end
 
