@@ -25,6 +25,8 @@ class Mastermind
 
       @turns -= 1
     end
+
+    display_loser unless game_won?
   end
 
   private
@@ -88,13 +90,22 @@ class Mastermind
     end
   end
 
+  def display_secret_code
+    @code.map { |color| '⬤'.colorize(color) }.join(' ')
+  end
+
   def game_won?
     @code == @guess
   end
 
   def display_winner
     puts 'WINNER! You cracked the code!'.colorize(:green)
-    puts "The code was: #{@code.map { |color| '⬤'.colorize(color) }.join(' ')}"
+    puts "The code was: #{display_secret_code}"
     puts "You took #{MAX_TURNS - @turns + 1} turn(s) to solve it."
+  end
+
+  def display_loser
+    puts "LOOOOOOSER! You've used all your turns.".colorize(:red)
+    puts "The code was: #{display_secret_code}"
   end
 end
