@@ -12,8 +12,8 @@ class Mastermind
   end
 
   def play
-    puts @code
     MAX_TURNS.times do
+      system('clear')
       display_board
       display_hints
       process_guess
@@ -67,25 +67,24 @@ class Mastermind
   end
 
   def display_board
-    @guesses.each do |guess|
+    @guesses.transpose.each do |guess|
       guess.each { |color| print '  ⬤  '.colorize(color) }
-      puts
+      display_empty_spots
     end
   end
 
+  def display_empty_spots
+    puts ('  ⬤  ' * @turns).colorize(:gray)
+  end
+
   def display_hints
-    @hints.each do |hint|
-      hint.each { |color| print ' ⦿'.colorize(color) }
+    @hints.flatten.each_slice(2).to_a.transpose.each do |hint|
+      hint.each_with_index { |color, index| print "#{' ⦿'.colorize(color)}#{' ' if index.odd?}" }
       puts
     end
   end
 
   def game_won?
-    if @code == @guess
-      puts 'WINNER!'
-      true
-    else
-      false
-    end
+    @code == @guess
   end
 end
