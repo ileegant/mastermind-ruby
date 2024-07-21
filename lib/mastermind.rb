@@ -5,10 +5,11 @@ class Mastermind
   MAX_TURNS = 12
 
   def initialize
-    @turns  = MAX_TURNS
-    @code   = generate_secret_code
+    @turns   = MAX_TURNS
+    @display = Display.new
+    @code    = generate_secret_code
     @guesses = []
-    @hints = []
+    @hints   = []
   end
 
   def play
