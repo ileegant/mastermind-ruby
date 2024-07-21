@@ -6,6 +6,7 @@ require 'colorize'
 class Menu
   def initialize
     @prompt = TTY::Prompt.new
+    @display = Display.new
     @options = [
       { name: 'Start', value: 1 },
       { name: 'Rules', value: 2 },
@@ -19,27 +20,13 @@ class Menu
 
   def run
     loop do
-      display_header
+      @display.header
       user_choice = @prompt.select('', @options, symbols: { marker: '•' })
       handle_choice(user_choice)
     end
   end
 
   private
-
-  def display_header
-    puts <<-HEADER
-
-      __  __           _                      _           _
-     |  \\/  |         | |                    (_)         | |
-     | \\  / | __ _ ___| |_ ___ _ __ _ __ ___  _ _ __   __| |
-     | |\\/| |/ _` / __| __/ _ \\ '__| '_ ` _ \\| | '_ \\ / _` |
-     | |  | | (_| \\__ \\ ||  __/ |  | | | | | | | | | | (_| |
-     |_|  |_|\\__,_|___/\\__\\___|_|  |_| |_| |_|_|_| |_|\\__,_| (ruby)
-
-     2024 @ileegant
-    HEADER
-  end
 
   def handle_choice(choice)
     case choice
@@ -60,8 +47,7 @@ class Menu
   end
 
   def display_rules
-    puts 'Rules'
-    puts 'These are the rules of the game...'
+    @display.rules
     @prompt.keypress('Press any key to go back to the main menu')
     system('clear')
   end
