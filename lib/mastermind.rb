@@ -19,14 +19,14 @@ class Mastermind
       process_guess
 
       if game_won?
-        display_winner
+        @display.winner(@code, @guesses)
         break
       end
 
       @turns -= 1
     end
 
-    display_loser unless game_won?
+    @display.loser(@code) unless game_won?
   end
 
   private
@@ -72,45 +72,12 @@ class Mastermind
     end
   end
 
-  def display_board
-    @guesses.transpose.each do |guess|
-      guess.each { |color| print '  ⬤  '.colorize(color) }
-      display_empty_spots
-    end
-  end
-
-  def display_empty_spots
-    puts ('  ⬤  ' * @turns).colorize(:gray)
-  end
-
-  def display_hints
-    @hints.flatten.each_slice(2).to_a.transpose.each do |hint|
-      hint.each_with_index { |color, index| print "#{' ⦿'.colorize(color)}#{' ' if index.odd?}" }
-      puts
-    end
-  end
-
   def display_board_with_hints
-    display_board
-    display_hints
-  end
-
-  def display_secret_code
-    @code.map { |color| '⬤'.colorize(color) }.join(' ')
+    @display.board(@guesses)
+    @display.hints(@hints)
   end
 
   def game_won?
     @code == @guess
-  end
-
-  def display_winner
-    puts 'WINNER! You cracked the code!'.colorize(:green)
-    puts "The code was: #{display_secret_code}"
-    puts "You took #{MAX_TURNS - @turns + 1} turn(s) to solve it."
-  end
-
-  def display_loser
-    puts "LOOOOOOSER! You've used all your turns.".colorize(:red)
-    puts "The code was: #{display_secret_code}"
   end
 end
