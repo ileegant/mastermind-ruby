@@ -14,7 +14,6 @@ class Mastermind
 
   def play
     MAX_TURNS.times do
-      system('clear')
       display_board_with_hints
       process_guess
 
@@ -60,7 +59,6 @@ class Mastermind
     color_matches = calculate_color_matches - exact_matches
     no_matches = 4 - (exact_matches + color_matches)
     @hints << [:red] * exact_matches + [:yellow] * color_matches + [:white] * no_matches
-    puts "#{exact_matches} red, #{color_matches} yellow, #{no_matches} white."
   end
 
   def calculate_color_matches

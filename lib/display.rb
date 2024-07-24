@@ -51,9 +51,11 @@ class Display
     puts "The code was: #{secret_code(code)}"
   end
 
-  private
-
   def empty_spots(turns)
     puts ('  ⬤  ' * turns).colorize(:gray)
+  end
+
+  def clear
+    system('clear')
   end
 end
